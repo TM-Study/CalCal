@@ -1,14 +1,20 @@
-// 日ごとのカロリー情報
+/**
+ * アコーディオンエリア情報
+ * <p>
+ * 日ごとのカロリー情報
+ */
 export interface AccordionItemInfo {
-  id: string;
-  date: Date;
+  date: string;
   totalCal: number;
   detailCalInfos: DetailCalInfo[];
 }
 
-// 品目ごとのカロリー情報
+/**
+ * アコーディオン要素情報
+ * <p>
+ * 品目ごとのカロリー情報
+ */
 export interface DetailCalInfo {
-  id: string;
   item: string;
   cal: number;
 }
