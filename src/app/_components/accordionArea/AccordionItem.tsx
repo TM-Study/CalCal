@@ -6,6 +6,7 @@ import {
   AccordionDetails,
   Typography,
   Box,
+  Button,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DetailCalTable from './DetailCalTable';
@@ -15,6 +16,25 @@ interface AccordionItemProps {
 }
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ accordionItemInfo }) => {
+  // 削除ボタン押下時処理
+  const handleDeleteButton = async () => {
+    // 削除対象日付
+    const date: string = accordionItemInfo.date;
+    try {
+      await fetch('/api/deleteByDate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ date }),
+      });
+      window.location.reload();
+    } catch (error) {
+      alert('削除に失敗しました');
+      throw error;
+    }
+  };
+
   return (
     <Accordion>
       {/* アコーディオンヘッダ */}
@@ -37,8 +57,13 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ accordionItemInfo }) => {
         </Box>
       </AccordionSummary>
       {/* アコーディオン要素 */}
-      <AccordionDetails>
+      <AccordionDetails className="flex flex-col items-center gap-4">
+        {/* 品目別カロリー情報 */}
         <DetailCalTable detailCalInfos={accordionItemInfo.detailCalInfos} />
+        {/*  削除ボタン */}
+        <Button variant="outlined" color="error" onClick={handleDeleteButton}>
+          削除
+        </Button>
       </AccordionDetails>
     </Accordion>
   );
