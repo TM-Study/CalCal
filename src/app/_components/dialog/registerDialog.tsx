@@ -33,9 +33,9 @@ const RegisterDialog: React.FC<RegisterDialogProps> = ({
   };
 
   // 登録ボタン押下時処理
-  const handleRegisterClick = () => {
+  const handleRegisterClick = async () => {
     if (date && item && cal) {
-      handleRegister(date?.format('YYYY-MM-DD'), item, parseInt(cal, 10));
+      await handleRegister(date?.format('YYYY-MM-DD'), item, parseInt(cal, 10));
       handleClose();
       resetState();
     } else {

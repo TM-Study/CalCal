@@ -21,7 +21,6 @@ const Home: React.FC = () => {
         },
         body: JSON.stringify({ date, item, cal }),
       });
-      handleClose();
     } catch (error) {
       alert('登録に失敗しました');
       throw error;
@@ -39,7 +38,7 @@ const Home: React.FC = () => {
       {/* 登録ダイアログ */}
       <RegisterDialog
         open={open}
-        handleClose={() => {}}
+        handleClose={handleClose}
         handleRegister={handleRegister}
       />
     </div>
