@@ -1,11 +1,37 @@
 'use client';
 
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AccordionArea from './_components/accordionArea/AccordionArea';
 import RegisterDialog from './_components/dialog/registerDialog';
+import { useRouter } from 'next/navigation';
 
 const Home: React.FC = () => {
+  /** hooks */
+  const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch('/api/getUser');
+        if (!response.ok) {
+          throw new Error('ユーザー情報の取得に失敗しました');
+        }
+        const data = await response.json();
+        console.log('User data:', data);
+
+        if (!data.user) {
+          alert('サインインをしてください');
+          router.push('/sign-in');
+        }
+      } catch (error) {
+        console.error('Error fetching user:', error);
+        alert('ユーザー情報の取得に失敗しました');
+        router.push('/sign-in');
+      }
+    })();
+  }, []);
+
   // ダイアログの開閉制御
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = () => setOpen(true);

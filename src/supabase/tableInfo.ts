@@ -16,6 +16,7 @@ export type TableInfoType = CalInfoTableType;
 export interface CalInfoTableType {
   id?: number;
   created_at?: string;
+  user_id?: string;
   date: string;
   item: string;
   cal: number;
