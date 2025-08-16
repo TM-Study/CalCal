@@ -10,5 +10,7 @@ export const POST = async (req: Request) => {
   const data = await req.json();
   const { email, password } = data;
 
-  await signUp(email, password);
+  const userInfo = await signUp(email, password);
+
+  return new Response(JSON.stringify(userInfo));
 }

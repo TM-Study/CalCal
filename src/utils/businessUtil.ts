@@ -1,5 +1,5 @@
-import { AccordionItemInfo } from "../_components/accordionArea/dto/AccordionAreaInfo";
-import { CalInfoTableType } from "../supabase/tableInfo";
+import { AccordionItemInfo } from "@/app/_components/accordionArea/dto/AccordionAreaInfo";
+import { CalInfoTableType } from "./supabase/tableInfo";
 
 /**
  * テーブル情報から画面情報に変換

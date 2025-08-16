@@ -1,7 +1,7 @@
 import { AccordionItemInfo } from "@/app/_components/accordionArea/dto/AccordionAreaInfo";
-import { CalInfoTableType } from "@/supabase/tableInfo";
 import { transformToAccordionItemInfo } from "@/utils/businessUtil";
 import { selectAll } from "@/utils/crudUtil";
+import { CalInfoTableType } from "@/utils/supabase/tableInfo";
 
 /**
  * アコーディオンエリア情報を取得

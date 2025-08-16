@@ -1,5 +1,5 @@
-import { CalInfoTableType } from "@/supabase/tableInfo";
 import { insertInto } from "@/utils/crudUtil";
+import { CalInfoTableType } from "@/utils/supabase/tableInfo";
 
 /**
  * 摂取カロリー情報を登録

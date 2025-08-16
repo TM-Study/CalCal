@@ -1,21 +1,18 @@
-import { createClient } from '@/supabase/supabaseClient';
 import { User } from '@supabase/supabase-js';
+import { createClient } from './supabase/server';
 
 /**
- * Supabaseに接続するクライアントインスタンス
- */
-const supabase = createClient();
-
-/**
- * サインアップ
+ * サインアップ処理
  * 
  * <see href="https://supabase.com/docs/reference/javascript/auth-signup">Supabase - Create a new user</see>
  * 
  * @param email メールアドレス
  * @param password パスワード
- * @returns 
+ * @returns ユーザ情報
  */
 export const signUp = async (email: string, password: string) => {
+  const supabase = await createClient();
+
   const { data, error } = await supabase.auth.signUp({
     email: email,
     password: password,
@@ -30,15 +27,17 @@ export const signUp = async (email: string, password: string) => {
 }
 
 /**
- * サインイン
+ * サインイン処理
  * 
  * <see href="https://supabase.com/docs/reference/javascript/auth-signin">Supabase - Sign in a user</see>
  * 
  * @param email メールアドレス
  * @param password パスワード
- * @returns 
+ * @returns ユーザ情報
  */
 export const signIn = async (email: string, password: string) => {
+  const supabase = await createClient();
+
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email,
     password: password,
@@ -60,6 +59,8 @@ export const signIn = async (email: string, password: string) => {
  * @return ユーザ情報
  */
 export const getUser = async (): Promise<User | null> => {
+  const supabase = await createClient();
+
   const { data, error } = await supabase.auth.getUser();
 
   if (error) {
