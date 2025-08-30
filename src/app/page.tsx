@@ -21,7 +21,6 @@ const Home: React.FC = () => {
         },
         body: JSON.stringify({ date, item, cal }),
       });
-      handleClose();
     } catch (error) {
       alert('登録に失敗しました');
       throw error;
@@ -34,12 +33,14 @@ const Home: React.FC = () => {
       <Button variant="outlined" color="success" onClick={handleOpen}>
         摂取カロリーを登録する
       </Button>
+
       {/* アコーディオンエリア */}
       <AccordionArea dialogState={open} />
+
       {/* 登録ダイアログ */}
       <RegisterDialog
         open={open}
-        handleClose={() => {}}
+        handleClose={handleClose}
         handleRegister={handleRegister}
       />
     </div>

@@ -1,5 +1,5 @@
 import { AccordionItemInfo } from './dto/AccordionAreaInfo';
-import { formatDateToMD } from '@/app/utils/dateUtil';
+import { formatDateToMD } from '@/utils/dateUtil';
 import {
   Accordion,
   AccordionSummary,

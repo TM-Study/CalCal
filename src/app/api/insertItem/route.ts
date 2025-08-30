@@ -1,13 +1,10 @@
-import { CalInfoTableType } from "@/app/supabase/tableInfo";
-import { insertInto } from "@/app/utils/crudUtil";
+import { insertInto } from "@/utils/crudUtil";
+import { CalInfoTableType } from "@/utils/supabase/tableInfo";
 
 /**
- * 摂取カロリー情報を登録する
+ * 摂取カロリー情報を登録
  * 
- * @param date 日付
- * @param item 品目
- * @param cal カロリー
- * @returns 登録結果
+ * @param req リクエスト
  */
 export const POST = async (req: Request) => {
   
@@ -19,7 +16,6 @@ export const POST = async (req: Request) => {
     item: item,
     cal: cal,
   };
-  const insertedData: CalInfoTableType[] = await insertInto<CalInfoTableType>('cal_info', calInfoTableData);
-
-  return Response.json({ insertedData : insertedData});
+  const insertedData = await insertInto<CalInfoTableType>('cal_info', calInfoTableData);
+  return new Response('Insert item successfully: ' + JSON.stringify(insertedData));
 }

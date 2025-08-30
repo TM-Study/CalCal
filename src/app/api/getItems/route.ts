@@ -1,10 +1,10 @@
 import { AccordionItemInfo } from "@/app/_components/accordionArea/dto/AccordionAreaInfo";
-import { CalInfoTableType } from "@/app/supabase/tableInfo";
-import { transformToAccordionItemInfo } from "@/app/utils/businessUtil";
-import { selectAll } from "@/app/utils/crudUtil";
+import { transformToAccordionItemInfo } from "@/utils/businessUtil";
+import { selectAll } from "@/utils/crudUtil";
+import { CalInfoTableType } from "@/utils/supabase/tableInfo";
 
 /**
- * アコーディオンエリア情報を取得する
+ * アコーディオンエリア情報を取得
  * 
  * @returns accordionItemInfos アコーディオンエリア情報
  */

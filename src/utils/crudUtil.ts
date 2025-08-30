@@ -1,10 +1,5 @@
-import { createClient } from '@/app/supabase/supabaseClient';
-import { TableInfoType, TableNameType } from '../supabase/tableInfo';
-
-/**
- * Supabaseに接続するクライアントインスタンス
- */
-const supabase = createClient();
+import { TableInfoType, TableNameType } from './supabase/tableInfo';
+import { createClient } from './supabase/server';
 
 /**
  * selectAll
@@ -15,6 +10,9 @@ const supabase = createClient();
  * @returns 検索結果
  */
 export const selectAll = async <T>(tableName: TableNameType): Promise<T[]> => {
+  const supabase = await createClient();
+
+  // データの取得
   const { data, error } = await supabase
     .from(tableName)
     .select();
@@ -38,12 +36,17 @@ export const selectAll = async <T>(tableName: TableNameType): Promise<T[]> => {
  * @returns 挿入結果
  */
 export const insertInto = async <T>(tableName: TableNameType, tableInfo: TableInfoType): Promise<T[]> => {
+  const supabase = await createClient();
+
+  const user_id = (await supabase.auth.getUser()).data.user?.id;
+
+  // データの挿入
   const { data, error } = await supabase
     .from(tableName)
     .insert([
-      tableInfo,
+      { ...tableInfo, user_id: user_id },
     ])
-    .select()
+    .select();
 
   // ロギング
   console.log(`insertInto('${tableName}'):`, data);
@@ -55,16 +58,21 @@ export const insertInto = async <T>(tableName: TableNameType, tableInfo: TableIn
 };
 
 /**
+ * deleteByDate
+ * <p>
  * 日付を指定してレコードを削除する
  * 
  * @param tableName テーブル名
  * @param date 日付
  */
 export const deleteByDate = async (tableName: TableNameType, date: string) => {
+  const supabase = await createClient();
+
+  // データの削除
   const { error } = await supabase
     .from(tableName)
     .delete()
-    .eq('date', date)
+    .eq('date', date);
 
   // ロギング
   if (error) {
