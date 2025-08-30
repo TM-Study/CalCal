@@ -8,6 +8,7 @@ import {
   TextField,
 } from '@mui/material';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface AuthDialogProps {
   open: boolean;
@@ -15,6 +16,9 @@ interface AuthDialogProps {
 }
 
 const AuthDialog: React.FC<AuthDialogProps> = ({ open, handleClose }) => {
+  /* hooks */
+  const router = useRouter();
+
   // 入力値の状態
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -35,6 +39,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, handleClose }) => {
           body: JSON.stringify({ email, password }),
         });
         handleClose();
+        router.push('/');
         resetState();
       } catch (error) {
         alert('処理に失敗しました');
@@ -57,6 +62,7 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, handleClose }) => {
           body: JSON.stringify({ email, password }),
         });
         handleClose();
+        router.push('/');
         resetState();
       } catch (error) {
         alert('処理に失敗しました');
