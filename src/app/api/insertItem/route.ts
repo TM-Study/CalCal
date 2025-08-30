@@ -16,5 +16,6 @@ export const POST = async (req: Request) => {
     item: item,
     cal: cal,
   };
-  await insertInto<CalInfoTableType>('cal_info', calInfoTableData);
+  const insertedData = await insertInto<CalInfoTableType>('cal_info', calInfoTableData);
+  return new Response('Insert item successfully: ' + JSON.stringify(insertedData));
 }

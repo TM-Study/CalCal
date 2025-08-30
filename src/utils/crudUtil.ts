@@ -38,11 +38,13 @@ export const selectAll = async <T>(tableName: TableNameType): Promise<T[]> => {
 export const insertInto = async <T>(tableName: TableNameType, tableInfo: TableInfoType): Promise<T[]> => {
   const supabase = await createClient();
 
+  const user_id = (await supabase.auth.getUser()).data.user?.id;
+
   // データの挿入
   const { data, error } = await supabase
     .from(tableName)
     .insert([
-      tableInfo,
+      { ...tableInfo, user_id: user_id },
     ])
     .select();
 
