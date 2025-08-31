@@ -31,15 +31,21 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, handleClose }) => {
   const handleLoginClick = async () => {
     if (email && password) {
       try {
-        await fetch('/api/signIn', {
+        const response = await fetch('/api/signIn', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email, password }),
         });
-        handleClose();
+        const result = await response.json();
+        if (result.errorMessage) {
+          alert(`ログインに失敗しました\nerror:${result.errorMessage}`);
+          return;
+        }
+        alert('ログインに成功しました');
         router.push('/');
+        handleClose();
         resetState();
       } catch (error) {
         alert('処理に失敗しました');
@@ -54,15 +60,21 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, handleClose }) => {
   const handleRegisterClick = async () => {
     if (email && password) {
       try {
-        await fetch('/api/signUp', {
+        const response = await fetch('/api/signUp', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ email, password }),
         });
-        handleClose();
+        const result = await response.json();
+        if (result.errorMessage) {
+          alert(`新規登録に失敗しました\nerror:${result.errorMessage}`);
+          return;
+        }
+        alert('新規登録に成功しました');
         router.push('/');
+        handleClose();
         resetState();
       } catch (error) {
         alert('処理に失敗しました');
@@ -98,7 +110,10 @@ const AuthDialog: React.FC<AuthDialogProps> = ({ open, handleClose }) => {
         />
       </DialogContent>
 
-      <DialogActions className="flex">
+      <DialogActions
+        className="flex justify-center"
+        sx={{ justifyContent: 'center' }}
+      >
         {/* ログインボタン */}
         <Button variant="outlined" color="success" onClick={handleLoginClick}>
           ログイン
