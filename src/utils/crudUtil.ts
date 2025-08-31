@@ -65,17 +65,24 @@ export const insertInto = async <T>(tableName: TableNameType, tableInfo: TableIn
  * @param tableName テーブル名
  * @param date 日付
  */
-export const deleteByDate = async (tableName: TableNameType, date: string) => {
+export const deleteByDate = async <T>(tableName: TableNameType, date: string): Promise<T[]> => {
   const supabase = await createClient();
 
+  const user_id = (await supabase.auth.getUser()).data.user?.id;
+
   // データの削除
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from(tableName)
     .delete()
-    .eq('date', date);
+    .eq('date', date)
+    .eq('user_id', user_id)
+    .select();
 
   // ロギング
+  console.log(`deleteByDate('${tableName}'):`, data);
   if (error) {
     throw new Error(`Failed to delete data from ${tableName}: ${error.message}`);
   }
+
+  return data as T[];
 };

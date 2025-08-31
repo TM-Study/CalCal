@@ -1,4 +1,5 @@
 import { deleteByDate } from "@/utils/crudUtil";
+import { CalInfoTableType } from "@/utils/supabase/tableInfo";
 
 /**
  * レコードの削除
@@ -10,5 +11,6 @@ export const POST = async (req: Request) => {
   const data = await req.json();
   const { date } = data;
 
-  await deleteByDate('cal_info', date);
+  const deletedData = await deleteByDate<CalInfoTableType>('cal_info', date);
+  return new Response(JSON.stringify(deletedData));
 }
