@@ -18,12 +18,7 @@ export const signUp = async (email: string, password: string) => {
     password: password,
   })
 
-  // ロギング
-  if (error) {
-    throw new Error(`Failed to sign up: ${error.message}`);
-  }
-
-  return data;
+  return { data, errorMessage: error?.message };
 }
 
 /**
@@ -43,12 +38,7 @@ export const signIn = async (email: string, password: string) => {
     password: password,
   })
 
-  // ロギング
-  if (error) {
-    throw new Error(`Failed to sign in: ${error.message}`);
-  }
-
-  return data;
+  return { data, errorMessage: error?.message };
 }
 
 /**
